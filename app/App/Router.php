@@ -29,8 +29,7 @@ class Router
 
         foreach (self::$routes as $route)
         {
-            $pattern = "#^" . $route['path'] . "$#";
-            if (preg_match($pattern, $path, $variables) && $method == $route['method'])
+            if (self::isValidPath($route['path'],$variables) && $method == $route['method'])
             {
                 // call middleware
                 foreach ($route['middleware'] as $middleware)
@@ -50,5 +49,16 @@ class Router
         }
         http_response_code(404);
         echo 'Controller not founds';
+    }
+
+    public static function isValidPath($path, &$variables): bool
+    {
+        $pattern = "#^/movie/([0-9]+)$#";
+        return preg_match($pattern, $path, $variables);
+    }
+
+    public static function getPattern(): string
+    {
+        return "#^/movie/([0-9a-zA-Z]+)$#";
     }
 }
