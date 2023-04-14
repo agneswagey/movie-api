@@ -30,9 +30,4 @@ class HomeController extends BaseController
         View::render('home/index', $data);
         View::renderTemplate('footer', $data);
     }
-
-    public function hello(): void
-    {
-        echo 'HomeController.hello()';
-    }
 }
